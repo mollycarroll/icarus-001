@@ -2,7 +2,6 @@
 __pycache__/
 *.pyc
 data/__pycache__/
-ollama_data/
 .DS_Store
 data/
 .venv/

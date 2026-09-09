@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-from langchain_ollama import ChatOllama
+from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_community.vectorstores import SupabaseVectorStore
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
@@ -11,7 +11,7 @@ from langchain_core.output_parsers import StrOutputParser
 from supabase import create_client
 
 load_dotenv()
-from .config import SUPABASE_URL, SUPABASE_KEY, OLLAMA_MODEL, HF_TOKEN
+from .config import SUPABASE_URL, SUPABASE_KEY, HF_MODEL, HF_TOKEN
 
 app = FastAPI(title="Icarus backend")
 
@@ -28,7 +28,14 @@ vector_store = SupabaseVectorStore(
     query_name="match_documents",
 )
 
-llm = ChatOllama(model=OLLAMA_MODEL, temperature=0.3, num_ctx=8192)
+llm_endpoint = HuggingFaceEndpoint(
+    repo_id=HF_MODEL,
+    provider="auto",
+    temperature=0.3,
+    max_new_tokens=1024,
+    huggingfacehub_api_token=HF_TOKEN,
+)
+llm = ChatHuggingFace(llm=llm_endpoint)
 
 system_prompt = """
 You are Icarus, an AI chatbot created by Molly Carroll to represent her.

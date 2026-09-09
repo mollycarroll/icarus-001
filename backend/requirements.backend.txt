@@ -2,8 +2,8 @@ fastapi==0.115.*
 uvicorn[standard]==0.34.*
 langchain==0.3.*
 langchain-community==0.3.*
-langchain-ollama==0.2.*
-langchain-huggingface==0.1.*
+langchain-huggingface==0.3.*
+sentence-transformers==3.3.*
 supabase==2.11.*
 python-dotenv==1.0.*
 pydantic==2.10.*
