@@ -9,7 +9,7 @@ API_URL = os.getenv("BACKEND_API_URL", "http://localhost:8000")
 
 st.set_page_config(page_title="Icarus the AI Resume", page_icon="🪽", layout="centered")
 
-st.title("Icarus")
+st.title("Icarus the AI Resume")
 st.caption("Ask questions about Molly Carroll's experience and background")
 
 # Initialize chat history
