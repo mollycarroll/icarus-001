@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 from langchain_huggingface import ChatHuggingFace, HuggingFaceEndpoint
 from langchain_community.vectorstores import SupabaseVectorStore
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -17,8 +17,10 @@ app = FastAPI(title="Icarus backend")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
-embeddings = HuggingFaceEmbeddings(
-    model_name="BAAI/bge-m3", model_kwargs={"token": HF_TOKEN}
+embeddings = HuggingFaceEndpointEmbeddings(
+    model="BAAI/bge-m3",
+    provider="hf-inference",
+    huggingfacehub_api_token=HF_TOKEN,
 )
 
 vector_store = SupabaseVectorStore(

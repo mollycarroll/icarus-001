@@ -2,7 +2,7 @@ import os
 import re
 from dotenv import load_dotenv
 from supabase import create_client
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_huggingface import HuggingFaceEndpointEmbeddings
 from langchain_community.document_loaders import DirectoryLoader, TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import SupabaseVectorStore
@@ -15,8 +15,10 @@ SUPABASE_KEY = os.getenv("SUPABASE_SERVICE_KEY")
 print("🚀 Starting ingestion...")
 
 supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-embeddings = HuggingFaceEmbeddings(
-    model_name="BAAI/bge-m3", model_kwargs={"token": os.getenv("HF_TOKEN")}
+embeddings = HuggingFaceEndpointEmbeddings(
+    model="BAAI/bge-m3",
+    provider="hf-inference",
+    huggingfacehub_api_token=os.getenv("HF_TOKEN"),
 )
 
 vector_store = SupabaseVectorStore(

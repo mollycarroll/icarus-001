@@ -1,0 +1,23 @@
+# fly.toml app configuration file generated for icarus-frontend on 2026-09-08T23:49:33-05:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'icarus-frontend'
+primary_region = 'ord'
+
+[build]
+  dockerfile = 'frontend/Dockerfile.frontend'
+
+[http_service]
+  internal_port = 8501
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpus = 1
+  memory_mb = 1024

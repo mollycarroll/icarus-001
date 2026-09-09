@@ -41,7 +41,7 @@ if prompt := st.chat_input("Ask anything about Molly's background..."):
         with st.spinner("Thinking..."):
             try:
                 response = requests.post(
-                    f"{API_URL}/chat", json={"question": prompt}, timeout=120
+                    f"{API_URL}/chat", json={"question": prompt}, timeout=180
                 )
                 response.raise_for_status()
                 answer = response.json().get(
