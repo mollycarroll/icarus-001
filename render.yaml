@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: icarus-backend
+    runtime: docker
+    plan: free
+    rootDir: backend
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    envVars:
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: HF_TOKEN
+        sync: false
+      - key: HF_MODEL
+        sync: false
+
+  - type: web
+    name: icarus-frontend
+    runtime: docker
+    plan: free
+    rootDir: frontend
+    dockerfilePath: ./frontend/Dockerfile
+    dockerContext: ./frontend
+    envVars:
+      - key: BACKEND_API_URL
+        sync: false
